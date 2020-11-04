@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guided 2</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>Tebak Angka</h2>
+        <div>
+            <input v-model="inputan" type="number" placeholder = "3" :disabled="disabled"><br>
+            <button @click="tebakAngka" :disabled="disabled"> Tebak </button>
+        </div>
+        <p> Kesempatan = {{ kesempatan }}</p>
+        <div v-show="benar">
+            <p>JAWABAN BENAR</p>
+            <br>
+            <button @click="mainlagi"> Main Lagi </button>
+        </div>
+        <div v-show="salah">
+            <p>JAWABAN SALAH</p>
+            <br>
+            <button @click="cobalagi"> COBA LAGI? </button>
+        </div>
+        <div v-show="kalah">
+            <p>KESEMPATAN HABIS</p>
+            <br>
+            <button @click="mainlagi"> Main Lagi </button>
+        </div>
+        <footer>
+            {{ `${mahasiswa.nama}|${mahasiswa.npm}|${mahasiswa.kelas}`}}
+        </footer>
+         
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data: {
+            inputan:0,
+            benar : false,
+            salah: false,
+            kalah: false,
+            kesempatan:3,
+            angka:Math.floor(Math.random() * 10)+1,
+            disable:false,
+            mahasiswa:{
+                nama:'Dimas Prayoga',
+                npm:'180709615',
+                kelas:'D',
+            },
+            
+        },
+        methods: {
+            tebakAngka(){
+                this.kesempatan--;
+                if(this.angka == this.inputan){
+                    this.benar = true;
+                    this.salah = false;
+                }
+                else if(this.kesempatan > 0){
+                    this.salah = true;  
+
+                }else{
+                    this.salah=false;
+                    this.kalah = true;
+                }
+                this.disabled = true;
+                console.log(this.angka);
+
+            },
+            cobalagi(){
+                this.disabled = false;
+                this.salah = false;
+            },
+
+            mainlagi(){
+                
+                this.inputan=0;
+                this.benar = false;
+                this.salah= false;
+                this.kalah= false;
+                this.kesempatan=3;
+                this.angka=Math.floor(Math.random() * 10)+1;
+                this.disabled=false;
+            }
+        },
+    });
+</script>
+</html>

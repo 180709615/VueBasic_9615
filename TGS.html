@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div class="bg" style="background-color: aquamarine ;min-width: 100%; min-height: 100%; position: fixed; top: 0; left: 0;">
+        <div id="app">
+            <div class=" col-4 justify-content-cente mx-auto  " style="overflow-y: auto ; max-height: 300px;">            
+                <div v-for="(todo,index) in list" :key = "index">
+                    <div class="card my-2" >
+                        <div class="card-header">
+                            <h4 v-if="todo.prioritas == 'penting'"  class="text-danger">Penting</h4>
+                            <h4 v-else-if="todo.prioritas == 'biasa' " class="text-primary">Biasa</h4>
+                            <h4 v-else-if="todo.prioritas == 'tidak penting'" class="text-success">Tidak Penting</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ todo.nama }}</h5>
+                            <p class="card-text">{{ todo.desc }}</p> 
+                        </div>
+                    </div>      
+                </div>
+                
+            </div>
+            <div class=" card col-4 justify-content-center mx-auto " style="padding:20px ; margin-top: 30px;">
+                <div class="form-group">
+                    <label for="nama">Nama</label>
+                    <input v-model="nama" type="text" class="form-control" id="nama"> 
+                </div>
+                <div class="form-group">
+                    <label for="prioritas">Prioritas</label>
+                    <select v-model="prioritas" class="form-control" id="prioritas">
+                      <option value="penting">Penting</option>
+                      <option value="biasa">Biasa</option>
+                      <option value="tidak penting">Tidak penting</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="desc">Deskripsi</label>
+                    <input v-model="desc" type="text" class="form-control" id="desc"> 
+                </div>
+                <button @click="save" class="btn btn-primary ml-auto">Save</button>
+                <button @click="reset" class = "btn btn-primary mr-auto"> Reset </button>
+            </div>
+            <footer class="blockquote text-center" >
+                {{ `${mahasiswa.nama}|${mahasiswa.npm}|${mahasiswa.kelas}`}}
+            </footer>
+        </div>
+    </div>
+    
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            nama:"",
+            prioritas:"",
+            desc:"",
+            list :[ ],
+            mahasiswa:{
+                nama:'Dimas Prayoga',
+                npm:'180709615',
+                kelas:'D',
+            },
+        },
+        methods: {
+            save(){
+                var nama;
+                var prioritas;
+                var desc;
+                
+                var task={
+                    
+                    nama:this.nama,
+                    prioritas:this.prioritas,
+                    desc:this.desc,
+                }
+                this.list.push(task)
+                this.nama="";
+                this.prioritas="";
+                this.desc="";
+
+            },
+            reset(){
+                this.nama="";
+                this.prioritas="";
+                this.desc="";
+            },
+            delete(id){
+                list.splice(id,1);
+            }
+        },
+    });
+</script>
+</html>

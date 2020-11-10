@@ -21,6 +21,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ todo.nama }}</h5>
                             <p class="card-text">{{ todo.desc }}</p> 
+                            <button class="btn btn-danger" @click="hapus(index)">Delete</button>
                         </div>
                     </div>      
                 </div>
@@ -60,7 +61,9 @@
             nama:"",
             prioritas:"",
             desc:"",
-            list :[ ],
+            list :[ 
+
+            ],
             mahasiswa:{
                 nama:'Dimas Prayoga',
                 npm:'180709615',
@@ -79,7 +82,7 @@
                     prioritas:this.prioritas,
                     desc:this.desc,
                 }
-                this.list.push(task)
+                this.list.push(task);
                 this.nama="";
                 this.prioritas="";
                 this.desc="";
@@ -90,9 +93,10 @@
                 this.prioritas="";
                 this.desc="";
             },
-            delete(id){
-                list.splice(id,1);
-            }
+            hapus(id){
+                this.list.splice(id,1);
+                console.log("klik");
+            },
         },
     });
 </script>
